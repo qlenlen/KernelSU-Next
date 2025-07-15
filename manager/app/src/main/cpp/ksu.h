@@ -87,6 +87,4 @@ bool set_su_enabled(bool enabled);
 
 bool is_su_enabled();
 
-bool is_zygisk_enabled();
-
 #endif //KERNELSU_KSU_H

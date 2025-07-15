@@ -34,7 +34,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
@@ -56,6 +55,7 @@ import com.rifsxd.ksunext.R
 import com.rifsxd.ksunext.ui.component.rememberConfirmDialog
 import com.rifsxd.ksunext.ui.util.*
 import com.rifsxd.ksunext.ui.util.module.LatestVersionInfo
+import com.rifsxd.ksunext.ui.util.zygiskRequired
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -142,7 +142,6 @@ fun HomeScreen(navigator: DestinationsNavigator) {
 
 @Composable
 private fun SuperuserCard() {
-    val count = getSuperuserCount()
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer
@@ -167,7 +166,7 @@ private fun SuperuserCard() {
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = count.toString(),
+                    text = getSuperuserCount().toString(),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -178,7 +177,6 @@ private fun SuperuserCard() {
 
 @Composable
 private fun ModuleCard() {
-    val count = getModuleCount()
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer
@@ -203,7 +201,7 @@ private fun ModuleCard() {
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = count.toString(),
+                    text = getModuleCount().toString(),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -665,7 +663,7 @@ private fun InfoCard(autoExpand: Boolean = false) {
                         )
                     }
 
-                    if (Natives.isZygiskEnabled()) {
+                    if (zygiskAvailable()) {
                         Spacer(Modifier.height(16.dp))
                         InfoCardItem(
                             label = stringResource(R.string.zygisk_status),

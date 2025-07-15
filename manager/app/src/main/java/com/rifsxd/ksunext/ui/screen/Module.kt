@@ -938,7 +938,7 @@ fun ModuleItem(
                     )
                 }
 
-                val filterZygiskModules = Natives.isZygiskEnabled() || !module.zygiskRequired
+                val filterZygiskModules = zygiskAvailable() || !module.zygiskRequired
 
                 LaunchedEffect(Unit) {
                     developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
@@ -982,7 +982,7 @@ fun ModuleItem(
                                         )
                                     )
                                 }
-                                if (!Natives.isZygiskEnabled() && module.zygiskRequired && !module.remove) {
+                                if (!zygiskAvailable() && module.zygiskRequired && !module.remove) {
                                     LabelItem(
                                         text = stringResource(R.string.zygisk_required),
                                         style = LabelItemDefaults.style.copy(
